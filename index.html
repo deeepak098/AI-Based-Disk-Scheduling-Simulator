@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Based Disk Scheduling Simulator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>Controls</h2>
+            <div class="input-group">
+                <label>Algorithm</label>
+                <select id="algorithm">
+                    <option value="fcfs">FCFS</option>
+                    <option value="sstf">SSTF</option>
+                    <option value="scan">SCAN</option>
+                    <option value="cscan">C-SCAN</option>
+                    <option value="look">LOOK</option>
+                    <option value="ai">AI-Based</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Head Position</label>
+                <input type="number" id="headPosition" value="50" min="0">
+            </div>
+            <div class="input-group">
+                <label>Requests</label>
+                <input type="text" id="requests" placeholder="e.g., 98,183,37">
+            </div>
+            <div class="input-group">
+                <label>Workload Pattern</label>
+                <select id="workload">
+                    <option value="random">Random</option>
+                    <option value="sequential">Sequential</option>
+                </select>
+            </div>
+            <button onclick="startSimulation()">Start</button>
+            <button onclick="pauseSimulation()">Pause</button>
+            <button onclick="resumeSimulation()">Resume</button>
+            <button onclick="resetSimulation()">Reset</button>
+            <div id="progress"><div id="progress-bar"></div></div>
+            <button onclick="saveConfig()">Save Config</button>
+            <button onclick="loadConfig()">Load Config</button>
+            <button onclick="showHelp()">Help</button>
+            <button onclick="showFeedback()">Feedback</button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Dashboard -->
+            <div class="card">
+                <h1>Disk Scheduling Dashboard</h1>
+                <p>Current Algorithm: <span id="currentAlgo">None</span><span class="status-indicator"></span></p>
+                <div class="metrics-grid">
+                    <div class="metric-card tooltip" data-tooltip="Total distance traveled by disk head">
+                        <h3>Seek Time</h3>
+                        <p id="seekTime">0</p>
+                    </div>
+                    <div class="metric-card tooltip" data-tooltip="Time to complete each request">
+                        <h3>Response Time</h3>
+                        <p id="responseTime">0</p>
+                    </div>
+                    <div class="metric-card tooltip" data-tooltip="Requests processed per unit time">
+                        <h3>Throughput</h3>
+                        <p id="throughput">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visualization -->
+            <div class="card">
+                <h2>Disk Head Movement</h2>
+                <canvas id="canvas" width="800" height="400"></canvas>
+            </div>
+
+            <!-- Performance Metrics -->
+            <div class="card">
+                <h2>Performance Metrics</h2>
+                <canvas id="metricsChart" width="800" height="200"></canvas>
+            </div>
+
+            <!-- Comparison & History -->
+            <div class="card">
+                <h2>Comparison & History</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Algorithm</th>
+                            <th>Seek Time</th>
+                            <th>Response Time</th>
+                            <th>Throughput</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
